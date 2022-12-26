@@ -40,7 +40,6 @@ exports.handleSignup = async (req, res, next) => {
 	}
 }
 exports.postLogin = async (req, res, next) => {
-	console.log(req.body)
 	if (validateForm(req)) {
 		passport.authenticate('local', (err, user, info) => {
 			if (err) {
