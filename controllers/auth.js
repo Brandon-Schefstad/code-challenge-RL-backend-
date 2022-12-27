@@ -21,7 +21,6 @@ function validateForm(req) {
 }
 
 exports.handleSignup = async (req, res, next) => {
-	console.log('signup')
 	if (validateForm(req)) {
 		const user = new User({
 			email: req.body.email,
@@ -34,14 +33,12 @@ exports.handleSignup = async (req, res, next) => {
 				if (err) {
 					return next(err)
 				}
-				console.log('unique user')
 			})
 			res.send(200, user)
 		}
 	}
 }
 exports.postLogin = async (req, res, next) => {
-	console.log('login')
 	if (validateForm(req)) {
 		passport.authenticate('local', (err, user, info) => {
 			if (err) {
