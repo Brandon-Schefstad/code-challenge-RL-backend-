@@ -16,7 +16,7 @@ exports.handleSignup = async (req, res, next) => {
 					return next(err)
 				}
 			})
-			res.send(200, user)
+			res.send(user)
 		}
 	}
 }
@@ -40,7 +40,7 @@ exports.postLogin = async (req, res, next) => {
 					email: req.body.email,
 				})
 				const idNumber = JSON.stringify(_id).split('"')[1]
-				res.send(200, idNumber)
+				res.send(idNumber)
 			})
 		})(req, res, next)
 	}

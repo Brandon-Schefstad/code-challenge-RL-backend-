@@ -6,9 +6,10 @@ const MongoStore = require('connect-mongo')
 
 const passport = require('passport')
 const session = require('express-session')
+const flash = require('express-flash')
 
 const bodyParser = require('body-parser')
-app.use(bodyParser.json())
+
 require('dotenv').config({ path: './.env' })
 
 const routes = require('./routes/mainRoutes.js')
@@ -35,10 +36,12 @@ app.use(
 	})
 )
 
-/**Passport Middleware*/
+/**Passport + Middleware*/
 require('./middleware/passport')(passport)
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash())
+app.use(bodyParser.json())
 
 app.use('/', indexRoutes)
 app.use('/api', routes)

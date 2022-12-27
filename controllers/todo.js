@@ -8,7 +8,7 @@ exports.getUserTodos = async (req, res) => {
 	if (user && user.todos.length > 0) {
 		res.send(user.todos)
 	} else {
-		res.send(404)
+		res.sendStatus(404)
 	}
 }
 
