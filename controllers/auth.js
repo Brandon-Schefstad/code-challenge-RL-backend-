@@ -21,6 +21,7 @@ function validateForm(req) {
 }
 
 exports.handleSignup = async (req, res, next) => {
+	console.log('signup')
 	if (validateForm(req)) {
 		const user = new User({
 			email: req.body.email,
@@ -40,6 +41,7 @@ exports.handleSignup = async (req, res, next) => {
 	}
 }
 exports.postLogin = async (req, res, next) => {
+	console.log('login')
 	if (validateForm(req)) {
 		passport.authenticate('local', (err, user, info) => {
 			if (err) {

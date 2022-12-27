@@ -8,10 +8,8 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 const flash = require('express-flash')
 
-const indexRoutes = require('./routes/index.js')
-const authRoutes = require('./routes/auth.js')
-const todoRoutes = require('./routes/todo.js')
-const userRoutes = require('./routes/user.js')
+const routes = require('./routes/mainRoutes.js')
+const indexRoutes = require('./routes/index')
 
 app.use(flash())
 app.use(bodyParser.json())
@@ -56,6 +54,5 @@ app.use(methodOverride('_method'))
 /**Passport */
 
 app.use('/', indexRoutes)
-app.use('/api/auth', authRoutes)
-app.use('/api/todo', todoRoutes)
-app.use('/api/user', userRoutes)
+
+app.use('/api', routes)
