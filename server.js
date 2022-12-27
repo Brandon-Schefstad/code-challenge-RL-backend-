@@ -9,6 +9,7 @@ const methodOverride = require('method-override')
 const flash = require('express-flash')
 
 const indexRoutes = require('./routes/index.js')
+const authRoutes = require('./routes/auth.js')
 const todoRoutes = require('./routes/todo.js')
 const userRoutes = require('./routes/user.js')
 
@@ -55,5 +56,6 @@ app.use(methodOverride('_method'))
 /**Passport */
 
 app.use('/', indexRoutes)
-app.use('/todo', todoRoutes)
-app.use('/user', userRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/todo', todoRoutes)
+app.use('/api/user', userRoutes)
