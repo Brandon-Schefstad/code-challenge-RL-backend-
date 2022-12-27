@@ -1,29 +1,19 @@
 const express = require('express')
 const app = express()
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
+
+const { connectDB } = require('./config/connectDB')
 const MongoStore = require('connect-mongo')
+
 const passport = require('passport')
 const session = require('express-session')
-const methodOverride = require('method-override')
-const flash = require('express-flash')
+
+const bodyParser = require('body-parser')
+app.use(bodyParser.json())
+require('dotenv').config({ path: './.env' })
 
 const routes = require('./routes/mainRoutes.js')
 const indexRoutes = require('./routes/index')
 
-app.use(flash())
-app.use(bodyParser.json())
-require('dotenv').config({ path: './.env' })
-
-const connectDB = async () => {
-	try {
-		const conn = await mongoose.connect(process.env.MONGO_URI)
-		console.log(`MongoDB Connected: ${conn.connection.host}`)
-	} catch (err) {
-		console.error(err)
-		process.exit(1)
-	}
-}
 async function connect() {
 	connectDB().then(
 		app.listen(process.env.PORT || 2121, () => {
@@ -44,15 +34,11 @@ app.use(
 		saveUninitialized: false,
 	})
 )
-require('./middleware/passport')(passport)
+
 /**Passport Middleware*/
+require('./middleware/passport')(passport)
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(methodOverride('_method'))
-
-/**Passport */
-
 app.use('/', indexRoutes)
-
 app.use('/api', routes)

@@ -10,7 +10,7 @@ exports.renderIndexPage = (req, res) => {
 		'Up until 1923, we didn’t know how dinosaurs were born.',
 	]
 	return res.json({
-		dinosaurFacts:
+		dinosaurFact:
 			dinosaurFacts[Math.floor(Math.random() * dinosaurFacts.length)],
 	})
 }

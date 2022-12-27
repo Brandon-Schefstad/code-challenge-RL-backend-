@@ -1,5 +1,17 @@
 const Todo = require('../models/Todo')
 const User = require('../models/User')
+
+exports.getUserTodos = async (req, res) => {
+	const user = await User.findOne({
+		email: req.params.user,
+	}).populate({ path: 'todos' })
+	if (user && user.todos.length > 0) {
+		res.send(user.todos)
+	} else {
+		res.send(404)
+	}
+}
+
 exports.postTodo = async (req, res) => {
 	try {
 		const user = await User.findOne({
@@ -21,16 +33,7 @@ exports.postTodo = async (req, res) => {
 		res.sendStatus(404)
 	}
 }
-exports.getTodo = async (req, res) => {
-	const user = await User.findOne({
-		email: req.params.user,
-	}).populate({ path: 'todos' })
-	if (user && user.todos.length > 0) {
-		res.send(user.todos)
-	} else {
-		res.send(404)
-	}
-}
+
 exports.deleteTodo = async (req, res) => {
 	try {
 		await Todo.deleteOne({

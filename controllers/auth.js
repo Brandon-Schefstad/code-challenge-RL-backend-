@@ -1,5 +1,4 @@
 const passport = require('passport')
-const flash = require('express-flash')
 const User = require('../models/User')
 const { validateForm } = require('./utils/validateForm')
 
@@ -33,17 +32,16 @@ exports.postLogin = async (req, res, next) => {
 				return res.redirect('/login')
 			}
 
-			req.logIn(user, (err) => {
+			req.logIn(user, async (err) => {
 				if (err) {
 					return next(err)
 				}
-				req.flash('success', { msg: 'Success! You are logged in.' })
+				const { _id } = await User.findOne({
+					email: req.body.email,
+				})
+				const idNumber = JSON.stringify(_id).split('"')[1]
+				res.send(200, idNumber)
 			})
 		})(req, res, next)
-		const { _id } = await User.findOne({
-			email: req.body.email,
-		})
-		const justIdNum = JSON.stringify(_id).split('"')[1]
-		res.send(200, justIdNum)
 	}
 }
