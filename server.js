@@ -20,7 +20,7 @@ async function connect() {
 }
 connect()
 app.listen(process.env.PORT || 2121, () => {
-			console.log(`http://localhost:${process.env.PORT}`)
+			console.log(`without callback http://localhost:${process.env.PORT}`)
 		})
 /**Session configs */
 app.use(
