@@ -16,14 +16,12 @@ const routes = require('./routes/mainRoutes.js')
 const indexRoutes = require('./routes/index')
 
 async function connect() {
-	connectDB().then(
-		app.listen(process.env.PORT || 2121, () => {
-			console.log(`http://localhost:${process.env.PORT}`)
-		})
-	)
+	connectDB()
 }
 connect()
-
+app.listen(process.env.PORT || 2121, () => {
+			console.log(`http://localhost:${process.env.PORT}`)
+		})
 /**Session configs */
 app.use(
 	session({
